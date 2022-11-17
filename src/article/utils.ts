@@ -1,7 +1,6 @@
 import { IArticlesInput } from './types';
-import { redirect, replace } from '@codixjs/codix';
 
-export function createArticlesLocation(params: IArticlesInput = {}) {
+export function createArticlesQuery(params: IArticlesInput = {}) {
   const { category, tag, keyword, page } = params;
   const _params = {
     category: category + '', 
@@ -13,16 +12,5 @@ export function createArticlesLocation(params: IArticlesInput = {}) {
   if (!tag) Reflect.deleteProperty(_params, 'tag');
   if (!keyword) Reflect.deleteProperty(_params, 'keyword');
   if (!page || page === 1) Reflect.deleteProperty(_params, 'page');
-
-  return {
-    redirect: () => redirect('/', _params),
-    replace: () => replace('/', _params),
-  }
-}
-
-export function createArticleLocation(code: string) {
-  return {
-    redirect: () => redirect('/article/' + code),
-    replace: () => replace('/article/' + code),
-  }
+  return _params;
 }

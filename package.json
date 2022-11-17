@@ -23,5 +23,8 @@
     "react-dom": "^18.0.0",
     "@codixjs/codix": "^1.0.14",
     "@codixjs/fetch": "^1.0.19"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -8,7 +8,6 @@ export interface IAricleWithSummary {
   mtime: string;
   comments: number;
   summary: string;
-  commentable: boolean,
   user: {
     id: number,
     account: string,
@@ -38,6 +37,7 @@ export interface IArticleWithHtml {
   ctime: Date;
   mtime: Date;
   readCount: number,
+  commentable: boolean,
   user: {
     id: number,
     account: string,

@@ -8,6 +8,7 @@ export interface IAricleWithSummary {
   mtime: string;
   comments: number;
   summary: string;
+  commentable: boolean,
   user: {
     id: number,
     account: string,

@@ -16,4 +16,5 @@ export interface IConfigs {
   onlines: number,
   reads: number,
   notice: string,
+  commentable: boolean,
 }

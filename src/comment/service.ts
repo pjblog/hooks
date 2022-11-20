@@ -24,3 +24,8 @@ export async function delHttpComment(cid: number) {
   const res = await request.delete('/comment/' + cid);
   return res.data;
 }
+
+export async function getHttpCommentPreview(text: string) {
+  const res = await request.post<string>('/comment/preview', { text });
+  return res.data;
+}

@@ -19,25 +19,11 @@ export function useComment(aid: number, pid: number) {
   }
 }
 
-export function useCommentsByIndex(aid: number) {
+export function useComments(aid: number, page: number = 1) {
   const configs = useRequestConfigs();
-  const [index, setIndex] = useState(0);
-  const obj = useAsync(
-    getHttpComments.namespace(aid, index), 
-    async (value?: ICommentList): Promise<ICommentList> => {
-      const oldData = Array.isArray(value?.list) ? value.list.slice(0) : [];
-      return await getHttpComments(aid, index, configs).then(({ list, total }) => {
-        return {
-          list: [...oldData, ...list],
-          total,
-        }
-      })
-    },
-    [aid, index]
+  return useAsync(
+    getHttpComments.namespace(aid, page), 
+    () => getHttpComments(aid, page, configs),
+    [aid, page]
   )
-
-  return {
-    ...obj,
-    index, setIndex,
-  }
 }

@@ -19,3 +19,8 @@ export async function getHttpComments(aid: number, page: number = 1, configs: Ax
 }
 
 getHttpComments.namespace = (aid: number, index: number = 0) => `comments:${aid}:index:${index}`;
+
+export async function delHttpComment(cid: number) {
+  const res = await request.delete('/comment/' + cid);
+  return res.data;
+}

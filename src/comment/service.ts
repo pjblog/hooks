@@ -9,10 +9,10 @@ export async function setHttpComment(aid: number, pid: number, text: string) {
   return res.data;
 }
 
-export async function getHttpComments(aid: number, index: number = 0, configs: AxiosRequestConfig = {}) {
+export async function getHttpComments(aid: number, page: number = 1, configs: AxiosRequestConfig = {}) {
   const res = await request.get<ICommentList>(`/article/${aid}/comments`, Object.assign(configs, {
     params: {
-      index
+      page
     }
   }));
   return res.data;

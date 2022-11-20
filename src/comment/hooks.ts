@@ -2,7 +2,6 @@ import { useAsync, useAsyncCallback } from "@codixjs/fetch";
 import { useCallback, useState } from "react";
 import { useRequestConfigs } from "../request";
 import { setHttpComment, getHttpComments } from './service';
-import { IComment, ICommentList } from './types';
 
 export function useComment(aid: number, pid: number) {
   const [text, setText] = useState<string>(null);

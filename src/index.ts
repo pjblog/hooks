@@ -6,3 +6,4 @@ export * from './link';
 export * from './category';
 export * from './comment';
 export * from './article';
+export * from './page';

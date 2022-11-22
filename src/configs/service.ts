@@ -20,6 +20,8 @@ export function createDetaultConfigs(): IConfigs {
     comments: 0,
     onlines: 0,
     reads: 0,
+    notice: null,
+    commentable: true,
   }
 }
 

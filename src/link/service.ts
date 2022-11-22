@@ -18,3 +18,10 @@ export async function setHttpLink(name: string, icon: string, url: string) {
   const res = await request.post('/link', { name, icon, url });
   return res.data;
 }
+
+export async function getHttpTableLink(configs: AxiosRequestConfig = {}) {
+  const res = await request.get<ILink[]>('/link/topables', configs);
+  return res.data;
+}
+
+getHttpTableLink.namespace = 'links:topable';

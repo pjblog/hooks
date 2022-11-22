@@ -1,11 +1,16 @@
 import { useAsync, useAsyncCallback } from "@codixjs/fetch";
 import { useCallback, useState } from "react";
 import { useRequestConfigs } from "../request";
-import { getHttpLinks, setHttpLink } from "./service";
+import { getHttpLinks, setHttpLink, getHttpTableLink } from "./service";
 
 export function useLinks(size: number = 0) {
   const configs = useRequestConfigs();
   return useAsync(getHttpLinks.namespace(size), () => getHttpLinks(size, configs), [size]);
+}
+
+export function useTopableLinks() {
+  const configs = useRequestConfigs();
+  return useAsync(getHttpTableLink.namespace, () => getHttpTableLink(configs));
 }
 
 export function useLink() {

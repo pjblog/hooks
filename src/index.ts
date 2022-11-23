@@ -7,3 +7,4 @@ export * from './category';
 export * from './comment';
 export * from './article';
 export * from './page';
+export * from './ping';

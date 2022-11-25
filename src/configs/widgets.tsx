@@ -1,5 +1,5 @@
 import React from "react";
-import { ConfigsContext, useHttpConfigs } from "./hooks";
+import { ConfigsContext, useHttpConfigs, ThemeConfigsContext, useHttpThemeConfigs } from "./hooks";
 import { ErrorTransformer } from '../error';
 
 export function ConfigsProvider(props: React.PropsWithChildren<{
@@ -16,4 +16,11 @@ export function ConfigsProvider(props: React.PropsWithChildren<{
       {props.children}
     </ConfigsContext.Provider>
   </ErrorTransformer>
+}
+
+export function ThemeProvider(props: React.PropsWithChildren<{}>) {
+  const { data } = useHttpThemeConfigs();
+  return <ThemeConfigsContext.Provider value={data}>
+    {props.children}
+  </ThemeConfigsContext.Provider>
 }

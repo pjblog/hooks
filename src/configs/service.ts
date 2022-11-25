@@ -31,3 +31,10 @@ export async function getHttpConfigs(configs: AxiosRequestConfig = {}) {
 }
 
 getHttpConfigs.namespace = 'configs';
+
+export async function getHttpThemeConfigs<T>(configs: AxiosRequestConfig = {}) {
+  const res = await request.get<T>('/theme/configs', configs);
+  return res.data;
+}
+
+getHttpThemeConfigs.namespace = 'theme:configs';

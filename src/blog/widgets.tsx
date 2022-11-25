@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { ConfigsProvider } from '../configs';
+import { ConfigsProvider, ThemeProvider } from '../configs';
 import { MyInfoProvider } from '../user';
 import { Ping } from '../ping';
 
@@ -13,9 +13,13 @@ export function BlogProvider(props: React.PropsWithChildren<{
     <Suspense fallback={props.fallback}>
       <ConfigsProvider error={props.error} forbiden={props.forbiden} close={props.close}>
         <Suspense fallback={props.fallback}>
-          <MyInfoProvider error={props.error} forbiden={props.forbiden}>
-            {props.children}
-          </MyInfoProvider>
+          <ThemeProvider>
+            <Suspense fallback={props.fallback}>
+              <MyInfoProvider error={props.error} forbiden={props.forbiden}>
+                {props.children}
+              </MyInfoProvider>
+            </Suspense>
+          </ThemeProvider>
         </Suspense>
       </ConfigsProvider>
     </Suspense>

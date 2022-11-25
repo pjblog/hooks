@@ -14,7 +14,7 @@ export function useHttpConfigs() {
   return useAsync(getHttpConfigs.namespace, () => getHttpConfigs(configs));
 }
 
-export function useHttpThemeConfigs() {
+export function useHttpThemeConfigs<T = any>() {
   const configs = useRequestConfigs();
-  return useAsync(getHttpThemeConfigs.namespace, () => getHttpThemeConfigs(configs));
+  return useAsync<T>(getHttpThemeConfigs.namespace, () => getHttpThemeConfigs(configs));
 }

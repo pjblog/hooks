@@ -1,6 +1,6 @@
 {
   "name": "@pjblog/hooks",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "pjblog theme hooks",
   "main": "./dist/index.js",
   "module": "./dist/index.es.js",

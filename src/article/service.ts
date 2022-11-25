@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 import { request } from '../request';
-import { IArticlesInput, IArticles, IArticleWithHtml, IArticleRelative } from './types';
+import { IArticlesInput, IArticles, IArticleWithHtml, IArticleRelative, IArticleHot } from './types';
 
 export async function getHttpArticles(options: IArticlesInput = {}, configs: AxiosRequestConfig = {}) {
   const res = await request.get<IArticles>('/article', Object.assign(configs, {
@@ -28,3 +28,14 @@ export async function getHttpRelativeArticles(id: number, size: number = 5, conf
 }
 
 getHttpRelativeArticles.namespace = (id: number, size: number = 5) => `getRelativeArticles:${id}:${size}`;
+
+export async function getHttpHotArticles(size: number = 10, configs: AxiosRequestConfig = {}) {
+  const res = await request.get<IArticleHot[]>('/article/hot', Object.assign(configs, {
+    params: {
+      size
+    }
+  }))
+  return res.data;
+}
+
+getHttpHotArticles.namespace = (size: number) => `articles:hot:${size}`;

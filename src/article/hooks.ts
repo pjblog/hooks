@@ -1,6 +1,6 @@
 import { useAsync } from "@codixjs/fetch";
 import { useRequestConfigs } from "../request";
-import { getHttpArticle, getHttpArticles, getHttpRelativeArticles } from "./service";
+import { getHttpArticle, getHttpArticles, getHttpRelativeArticles, getHttpHotArticles } from "./service";
 import { IArticlesInput } from './types';
 
 export function useArticles(params: IArticlesInput) {
@@ -28,4 +28,13 @@ export function useRelativeArticles(id: number, size: number) {
     () => getHttpRelativeArticles(id, size, configs), 
     [id, size]
   )
+}
+
+export function useHotArticles(size: number) {
+  const configs = useRequestConfigs();
+  return useAsync(
+    getHttpHotArticles.namespace(size), 
+    () => getHttpHotArticles(size, configs), 
+    [size]
+  );
 }

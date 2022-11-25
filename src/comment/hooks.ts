@@ -1,7 +1,7 @@
 import { useAsync, useAsyncCallback } from "@codixjs/fetch";
 import { useCallback, useState } from "react";
 import { useRequestConfigs } from "../request";
-import { setHttpComment, getHttpComments, delHttpComment, getHttpCommentPreview } from './service';
+import { setHttpComment, getHttpComments, delHttpComment, getHttpCommentPreview, getHttpCommentLatest } from './service';
 
 export function useComment(aid: number, pid: number) {
   const [text, setText] = useState<string>(null);
@@ -33,4 +33,13 @@ export function useCommentDeletion() {
 
 export function useCommentPreview() {
   return useAsyncCallback(getHttpCommentPreview);
+}
+
+export function useCommentsLatest(size: number) {
+  const configs = useRequestConfigs();
+  return useAsync(
+    getHttpCommentLatest.namespace(size), 
+    () => getHttpCommentLatest(size, configs), 
+    [size]
+  );
 }

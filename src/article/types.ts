@@ -80,3 +80,11 @@ export interface IArticleRelative {
   summary: string,
   ctime: string | Date
 }
+
+export interface IArticleHot {
+  id: number,
+  code: string,
+  title: string,
+  summary: string,
+  count: number,
+}

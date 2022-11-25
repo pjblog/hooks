@@ -29,3 +29,14 @@ export async function getHttpCommentPreview(text: string) {
   const res = await request.post<string>('/comment/preview', { text });
   return res.data;
 }
+
+export async function getHttpCommentLatest(size: number = 10, configs: AxiosRequestConfig = {}) {
+  const res = await request.post<IComment[]>('/comment/recently', Object.assign(configs, {
+    params: {
+      size
+    }
+  }));
+  return res.data;
+}
+
+getHttpCommentLatest.namespace = (size: number) => `comments:latest:${size}`;

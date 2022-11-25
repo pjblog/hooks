@@ -31,7 +31,7 @@ export async function getHttpCommentPreview(text: string) {
 }
 
 export async function getHttpCommentLatest(size: number = 10, configs: AxiosRequestConfig = {}) {
-  const res = await request.post<IComment[]>('/comment/recently', Object.assign(configs, {
+  const res = await request.get<IComment[]>('/comment/recently', Object.assign(configs, {
     params: {
       size
     }

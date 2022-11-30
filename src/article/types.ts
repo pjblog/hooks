@@ -88,3 +88,10 @@ export interface IArticleHot {
   summary: string,
   count: number,
 }
+
+export interface IArticleHeaded {
+  id: string,
+  name: string,
+  level: number,
+  children?: IArticleHeaded[],
+}

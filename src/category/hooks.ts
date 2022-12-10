@@ -1,8 +1,9 @@
-import { useAsync } from "@codixjs/fetch";
-import { useRequestConfigs } from "../request";
-import { getHttpCategories } from "./service";
+import { useGetAsync } from "../request";
+import type { ICategory } from './types';
 
 export function useCategories() {
-  const configs = useRequestConfigs();
-  return useAsync(getHttpCategories.namespace, () => getHttpCategories(configs));
+  return useGetAsync<ICategory[]>({
+    id: 'categories',
+    url: '/category',
+  })
 }

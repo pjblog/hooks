@@ -67,7 +67,7 @@ export interface IArticlesInput {
 }
 
 export interface IArticles {
-  list: IAricleWithSummary[],
+  dataSource: IAricleWithSummary[],
   total: number,
   tag: string,
   category: string,

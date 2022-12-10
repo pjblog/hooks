@@ -1,6 +1,4 @@
 import { IConfigs } from './types';
-import { AxiosRequestConfig } from 'axios';
-import { request } from '../request';
 
 export function createDetaultConfigs(): IConfigs {
   return {
@@ -24,17 +22,3 @@ export function createDetaultConfigs(): IConfigs {
     commentable: true,
   }
 }
-
-export async function getHttpConfigs(configs: AxiosRequestConfig = {}) {
-  const res = await request.get<IConfigs>('/configs', configs);
-  return res.data;
-}
-
-getHttpConfigs.namespace = 'configs';
-
-export async function getHttpThemeConfigs<T>(configs: AxiosRequestConfig = {}) {
-  const res = await request.get<T>('/theme/configs', configs);
-  return res.data;
-}
-
-getHttpThemeConfigs.namespace = 'theme:configs';

@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import { ConfigsProvider, ThemeProvider } from '../configs';
 import { MyInfoProvider } from '../user';
-import { Ping } from '../ping';
 
 export function BlogProvider(props: React.PropsWithChildren<{ 
   fallback?: React.ReactNode, // loading
@@ -9,19 +8,17 @@ export function BlogProvider(props: React.PropsWithChildren<{
   forbiden?: React.ReactNode | JSX.Element, // user forbiden
   close?: React.ReactNode | JSX.Element, // website closed
 }>) {
-  return <Ping>
+  return <Suspense fallback={props.fallback}>
+  <ConfigsProvider error={props.error} forbiden={props.forbiden} close={props.close}>
     <Suspense fallback={props.fallback}>
-      <ConfigsProvider error={props.error} forbiden={props.forbiden} close={props.close}>
+      <ThemeProvider>
         <Suspense fallback={props.fallback}>
-          <ThemeProvider>
-            <Suspense fallback={props.fallback}>
-              <MyInfoProvider error={props.error} forbiden={props.forbiden}>
-                {props.children}
-              </MyInfoProvider>
-            </Suspense>
-          </ThemeProvider>
+          <MyInfoProvider error={props.error} forbiden={props.forbiden}>
+            {props.children}
+          </MyInfoProvider>
         </Suspense>
-      </ConfigsProvider>
+      </ThemeProvider>
     </Suspense>
-  </Ping>
+  </ConfigsProvider>
+</Suspense>
 }

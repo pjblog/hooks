@@ -1,7 +1,7 @@
 import { useRequestHeader } from '@codixjs/codix';
 import type { AxiosRequestConfig } from 'axios';
 
-export const BASE_URL = '/api';
+export const BASE_URL = '/-';
 export function useRequestConfigs(): AxiosRequestConfig {
   const host = useRequestHeader<string>('host');
   const cookie = useRequestHeader<string>('cookie');

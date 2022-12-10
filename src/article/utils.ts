@@ -1,4 +1,4 @@
-import { IArticleHead, IArticleHeaded, IArticlesInput } from './types';
+import type { IArticleHead, IArticleHeaded, IArticlesInput } from './types';
 
 export function createArticlesQuery(params: IArticlesInput = {}) {
   const { category, tag, keyword, page } = params;

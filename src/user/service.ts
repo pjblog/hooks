@@ -1,6 +1,5 @@
 import { IUser } from "./types";
 import { request } from '../request';
-import type { AxiosRequestConfig } from 'axios';
 
 export function createDefaultUserState(): IUser {
   return {
@@ -16,13 +15,6 @@ export function createDefaultUserState(): IUser {
     gmt_modified: new Date(),
   }
 }
-
-export async function getHttpMyInfo(configs: AxiosRequestConfig = {}) {
-  const res = await request.get<IUser>('/me', configs);
-  return res.data;
-}
-
-getHttpMyInfo.namespace = 'userinfo';
 
 export async function setHttpLogout() {
   const res = await request.delete('/logout');

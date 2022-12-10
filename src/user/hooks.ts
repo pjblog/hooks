@@ -1,15 +1,9 @@
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
-import { useRequestConfigs } from "../request";
-import { createDefaultUserState, getHttpMyInfo, setHttpLogin, setHttpLogout, setHttpPassword, setHttpProfile, setHttpRegister } from "./service";
-import { useAsync, useAsyncCallback } from '@codixjs/fetch';
+import { createDefaultUserState, setHttpLogin, setHttpLogout, setHttpPassword, setHttpProfile, setHttpRegister } from "./service";
+import { useAsyncCallback } from '@codixjs/fetch';
 
 export const MyInfoContext = createContext(createDefaultUserState());
 export const ReloadMyInfoContext = createContext<() => void>(() => {});
-
-export function useHttpMyInfo() {
-  const configs = useRequestConfigs();
-  return useAsync(getHttpMyInfo.namespace, () => getHttpMyInfo(configs));
-}
 
 export function useMyInfo() {
   return useContext(MyInfoContext);

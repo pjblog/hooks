@@ -128,7 +128,7 @@ export function usePassword() {
     if (!oldPassword) return Promise.reject(new Error('请输入旧密码'));
     if (!newPassword) return Promise.reject(new Error('请输入新密码'));
     if (newPassword !== comPassword) return Promise.reject(new Error('两次输入的密码不一致'));
-    return execute(oldPassword, newPassword, comPassword).then(reload);
+    return execute(oldPassword, newPassword).then(reload);
   }, [oldPassword, newPassword, comPassword, execute, reload]);
 
   return {

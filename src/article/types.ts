@@ -6,7 +6,6 @@ export interface IAricleWithSummary {
   ctime: string;
   readCount: number;
   mtime: string;
-  comments: number;
   summary: string;
   user: {
     id: number,
@@ -32,31 +31,34 @@ export interface IArticleHead {
 }
 
 export interface IArticleWithHtml {
-  id: number;
-  title: string;
-  ctime: Date;
-  mtime: Date;
+  id: number,
+  code: string,
+  title: string,
+  ctime: string | Date,
+  mtime: string | Date,
+  original: boolean,
   readCount: number,
-  commentable: boolean,
+  md5: string,
+  from: string,
+  html: string,
+  headings: IArticleHead[],
+  category?: {
+    id: number,
+    name: string
+  },
+  tags: {
+    id: number,
+    name: string,
+  }[],
   user: {
     id: number,
     account: string,
     nickname: string,
     avatar: string,
-    level: number
+    level: number,
   },
-  category: {
-    name: string,
-    id: number,
-  };
-  tags: {
-      name: string;
-      id: number;
-  }[];
-  html: string;
-  headings: IArticleHead[];
-  prev: IArticleRelative,
-  next: IArticleRelative,
+  prev?: IArticleRelative,
+  next?: IArticleRelative,
 }
 
 export interface IArticlesInput {
@@ -66,8 +68,8 @@ export interface IArticlesInput {
   page?: number,
 }
 
-export interface IArticles {
-  dataSource: IAricleWithSummary[],
+export interface IArticles<T extends IAricleWithSummary = IAricleWithSummary> {
+  dataSource: T[],
   total: number,
   tag: string,
   category: string,
@@ -77,8 +79,8 @@ export interface IArticleRelative {
   id: number,
   code: string,
   title: string,
-  summary: string,
-  ctime: string | Date
+  ctime: string | Date,
+  reads: number,
 }
 
 export interface IArticleHot {

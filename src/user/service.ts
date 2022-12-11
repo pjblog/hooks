@@ -27,18 +27,18 @@ export async function setHttpLogin(account: string, password: string) {
 }
 
 export async function setHttpRegister(account: string, password: string) {
-  const res = await request.post('/user', { account, password });
+  const res = await request.post('/register', { account, password });
   return res.data;
 }
 
 export async function setHttpProfile(nickname: string, email: string, avatar?: string, website?: string) {
-  const res = await request.put('/user', { nickname, email, avatar, website });
+  const res = await request.put('/profile', { nickname, email, avatar, website });
   return res.data;
 }
 
-export async function setHttpPassword(oldPassword: string, newPassword: string, comPassword: string) {
-  const res = await request.put('/me/password', {
-    oldPassword, newPassword, comPassword,
+export async function setHttpPassword(oldPassword: string, newPassword: string) {
+  const res = await request.put('/password', {
+    oldPassword, newPassword,
   })
   return res.data;
 }

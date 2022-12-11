@@ -1,4 +1,4 @@
-import MD5 from 'crypto-js/md5';
+import { MD5 } from 'crypto-js';
 import { useAsync, Client } from '@codixjs/fetch';
 import { DependencyList, useMemo } from 'react';
 import { useRequestConfigs } from './config';

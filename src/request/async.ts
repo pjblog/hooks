@@ -3,6 +3,7 @@ import { useAsync, Client } from '@codixjs/fetch';
 import { DependencyList, useMemo } from 'react';
 import { useRequestConfigs } from './config';
 import { request } from './request';
+import { AxiosRequestConfig } from 'axios';
 
 const HttpReuestCodes = new Map<string, string>();
 
@@ -23,6 +24,13 @@ function createHttpRequestCode(id: string, method: 'GET' | 'POST' | 'PUT' | 'DEL
   return md5;
 }
 
+function merge(configs: AxiosRequestConfig, options: AxiosRequestConfig) {
+  options.headers = options.headers 
+    ? Object.assign({}, options.headers, configs.headers) 
+    : configs.headers;
+  return Object.assign({}, configs, options);
+}
+
 export function useGetAsync<T = any>(
   options: {
     id: string,
@@ -35,7 +43,7 @@ export function useGetAsync<T = any>(
   const configs = useRequestConfigs();
   const code = useMemo(() => createHttpRequestCode(options.id, 'GET', options.url), [options.id, options.url]);
   return useAsync(code, async () => {
-    const res = await request.get<T>(options.url, Object.assign({}, configs, {
+    const res = await request.get<T>(options.url, merge(configs, {
       params: options.querys,
       headers: options.headers,
     }))
@@ -56,7 +64,7 @@ export function usePostAsync<T = any>(
   const configs = useRequestConfigs();
   const code = useMemo(() => createHttpRequestCode(options.id, 'POST', options.url), [options.id, options.url]);
   return useAsync(code, async () => {
-    const res = await request.post<T>(options.url, options.data, Object.assign({}, configs, {
+    const res = await request.post<T>(options.url, options.data, merge(configs, {
       params: options.querys,
       headers: options.headers,
     }))
@@ -77,7 +85,7 @@ export function usePutAsync<T = any>(
   const configs = useRequestConfigs();
   const code = useMemo(() => createHttpRequestCode(options.id, 'PUT', options.url), [options.id, options.url]);
   return useAsync(code, async () => {
-    const res = await request.put<T>(options.url, options.data, Object.assign({}, configs, {
+    const res = await request.put<T>(options.url, options.data, merge(configs, {
       params: options.querys,
       headers: options.headers,
     }))
@@ -97,7 +105,7 @@ export function useDelAsync<T = any>(
   const configs = useRequestConfigs();
   const code = useMemo(() => createHttpRequestCode(options.id, 'DELETE', options.url), [options.id, options.url]);
   return useAsync(code, async () => {
-    const res = await request.delete<T>(options.url, Object.assign({}, configs, {
+    const res = await request.delete<T>(options.url, merge(configs, {
       params: options.querys,
       headers: options.headers,
     }))

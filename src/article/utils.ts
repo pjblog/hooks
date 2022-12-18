@@ -5,7 +5,7 @@ export function createArticlesQuery(params: IArticlesInput = {}) {
   const _params = {
     category: category + '', 
     tag: tag + '', 
-    keyword: null, 
+    keyword, 
     page: page + '', 
   }
   if (!category) Reflect.deleteProperty(_params, 'category');

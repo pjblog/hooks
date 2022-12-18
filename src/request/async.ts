@@ -37,10 +37,12 @@ export function useGetAsync<T = any>(
     url: string, 
     querys?: object, 
     headers?: object, 
+    plugin?: string
   },
   deps?: DependencyList,
 ) {
   const configs = useRequestConfigs();
+  options.url = options.plugin ? createPluginURL(options.plugin, options.url) : options.url;
   const code = useMemo(() => createHttpRequestCode(options.id, 'GET', options.url), [options.id, options.url]);
   return useAsync(code, async () => {
     const res = await request.get<T>(options.url, merge(configs, {
@@ -57,11 +59,13 @@ export function usePostAsync<T = any>(
     url: string,
     querys?: object, 
     headers?: object, 
-    data?: object
+    data?: object,
+    plugin?: string,
   },
   deps?: DependencyList,
 ) {
   const configs = useRequestConfigs();
+  options.url = options.plugin ? createPluginURL(options.plugin, options.url) : options.url;
   const code = useMemo(() => createHttpRequestCode(options.id, 'POST', options.url), [options.id, options.url]);
   return useAsync(code, async () => {
     const res = await request.post<T>(options.url, options.data, merge(configs, {
@@ -78,11 +82,13 @@ export function usePutAsync<T = any>(
     url: string,
     querys?: object, 
     headers?: object, 
-    data?: object
+    data?: object,
+    plugin?: string,
   },
   deps?: DependencyList,
 ) {
   const configs = useRequestConfigs();
+  options.url = options.plugin ? createPluginURL(options.plugin, options.url) : options.url;
   const code = useMemo(() => createHttpRequestCode(options.id, 'PUT', options.url), [options.id, options.url]);
   return useAsync(code, async () => {
     const res = await request.put<T>(options.url, options.data, merge(configs, {
@@ -99,10 +105,12 @@ export function useDelAsync<T = any>(
     url: string, 
     querys?: object, 
     headers?: object, 
+    plugin?: string,
   },
   deps?: DependencyList,
 ) {
   const configs = useRequestConfigs();
+  options.url = options.plugin ? createPluginURL(options.plugin, options.url) : options.url;
   const code = useMemo(() => createHttpRequestCode(options.id, 'DELETE', options.url), [options.id, options.url]);
   return useAsync(code, async () => {
     const res = await request.delete<T>(options.url, merge(configs, {
@@ -111,4 +119,9 @@ export function useDelAsync<T = any>(
     }))
     return res.data;
   }, deps);
+}
+
+function createPluginURL(name: string, url: string = '/') {
+  name = name.startsWith('pjblog-plugin-') ? name : 'pjblog-plugin-' + name;
+  return '/plugin/' + name + (url === '/' ? '' : url);
 }

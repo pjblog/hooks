@@ -18,8 +18,8 @@ export function reloadHttpRequest(client: Client, ...ids: string[]) {
   }
 }
 
-function createHttpRequestCode(id: string, method: 'GET' | 'POST' | 'PUT' | 'DELETE', url: string) {
-  const md5 = MD5(method + ':' + url).toString();
+function createHttpRequestCode(id: string, method: 'GET' | 'POST' | 'PUT' | 'DELETE', url: string, encode: string) {
+  const md5 = MD5(method + ':' + url + ':' + (encode || '')).toString();
   HttpReuestCodes.set(id, md5);
   return md5;
 }
@@ -37,13 +37,14 @@ export function useGetAsync<T = any>(
     url: string, 
     querys?: object, 
     headers?: object, 
-    plugin?: string
+    plugin?: string,
+    encode?: string,
   },
   deps?: DependencyList,
 ) {
   const configs = useRequestConfigs();
   options.url = options.plugin ? createPluginURL(options.plugin, options.url) : options.url;
-  const code = useMemo(() => createHttpRequestCode(options.id, 'GET', options.url), [options.id, options.url]);
+  const code = useMemo(() => createHttpRequestCode(options.id, 'GET', options.url, options.encode), [options.id, options.url, options.encode]);
   return useAsync(code, async () => {
     const res = await request.get<T>(options.url, merge(configs, {
       params: options.querys,
@@ -61,12 +62,13 @@ export function usePostAsync<T = any>(
     headers?: object, 
     data?: object,
     plugin?: string,
+    encode?: string,
   },
   deps?: DependencyList,
 ) {
   const configs = useRequestConfigs();
   options.url = options.plugin ? createPluginURL(options.plugin, options.url) : options.url;
-  const code = useMemo(() => createHttpRequestCode(options.id, 'POST', options.url), [options.id, options.url]);
+  const code = useMemo(() => createHttpRequestCode(options.id, 'POST', options.url, options.encode), [options.id, options.url, options.encode]);
   return useAsync(code, async () => {
     const res = await request.post<T>(options.url, options.data, merge(configs, {
       params: options.querys,
@@ -84,12 +86,13 @@ export function usePutAsync<T = any>(
     headers?: object, 
     data?: object,
     plugin?: string,
+    encode?: string,
   },
   deps?: DependencyList,
 ) {
   const configs = useRequestConfigs();
   options.url = options.plugin ? createPluginURL(options.plugin, options.url) : options.url;
-  const code = useMemo(() => createHttpRequestCode(options.id, 'PUT', options.url), [options.id, options.url]);
+  const code = useMemo(() => createHttpRequestCode(options.id, 'PUT', options.url, options.encode), [options.id, options.url, options.encode]);
   return useAsync(code, async () => {
     const res = await request.put<T>(options.url, options.data, merge(configs, {
       params: options.querys,
@@ -106,12 +109,13 @@ export function useDelAsync<T = any>(
     querys?: object, 
     headers?: object, 
     plugin?: string,
+    encode?: string,
   },
   deps?: DependencyList,
 ) {
   const configs = useRequestConfigs();
   options.url = options.plugin ? createPluginURL(options.plugin, options.url) : options.url;
-  const code = useMemo(() => createHttpRequestCode(options.id, 'DELETE', options.url), [options.id, options.url]);
+  const code = useMemo(() => createHttpRequestCode(options.id, 'DELETE', options.url, options.encode), [options.id, options.url, options.encode]);
   return useAsync(code, async () => {
     const res = await request.delete<T>(options.url, merge(configs, {
       params: options.querys,
